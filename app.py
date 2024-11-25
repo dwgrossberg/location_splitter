@@ -28,7 +28,7 @@ def split_locations(locations):
 def split():
     data = request.get_json()
     for post in data:
-        post[3] = split_locations(post[2])
+        post[3] = split_locations(post[3])
     return jsonify(data)
 
 
