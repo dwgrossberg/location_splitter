@@ -19,11 +19,15 @@ def split_locations(locations):
     if 'locations' in locations:
         idx = locations.index('locations')
         locations = locations[idx+9:]
-    noRemoteUS = locations.replace('RemoteUS', 'Remote in US')
-    noUSA = noRemoteUS.replace('USA', 'US')
+    noRemote = locations.replace('Remote', 'Remote in US')
+    noUSA = noRemote.replace('USA', 'US')
     noNYC = noUSA.replace('NYC', 'New York, NY')
     split = [s for s in re.split('(?<=[A-Z]{2})(?=[A-Z])', noNYC) if s]
-    return ' | '.join(split)
+    newStr = ' | '.join(split)
+    splitUSA = newStr.replace('US', 'USA')
+    splitUSAGlitch = splitUSA.replace('U | S', 'USA')
+    splitUSAGlitch2 = splitUSAGlitch.replace('USA | USA', 'USA')
+    return splitUSAGlitch2
 
 
 @app.route('/splitter', methods=['POST'])
